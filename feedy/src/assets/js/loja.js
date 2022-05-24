@@ -47,3 +47,8 @@ function filter() {
         }
     })
 }
+
+function submit()
+{
+    document.querySelector(".submit").submit();
+}

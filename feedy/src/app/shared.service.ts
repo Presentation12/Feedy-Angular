@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 export class SharedService {
   readonly APIUrl = "https://localhost:5001/api";
   readonly PhotoUrl = "https://localhost:5001/images/";
-  headerAuth = new HttpHeaders().append("Authorization", 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJkdWFydGVyaWJlaXJvZGVtZWxvQGhvdG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbIkZ1bmNpb25hcmlvIiwiQWRtaW4iXSwiZXhwIjoxNjUzNDA1NTExfQ.8jH96OqQCLchsBilS1SuZKuGOVtAVJtAeKLq4v05F3RJPZuNn1p5MLCQy0if2h5SIXv6dEKEtQp3M7VaLdvKtQ')
+  headerAuth = new HttpHeaders().append("Authorization", 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJkdWFydGVyaWJlaXJvZGVtZWxvQGhvdG1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbIkZ1bmNpb25hcmlvIiwiQWRtaW4iXSwiZXhwIjoxNjUzNDkyMzIxfQ.1nMSEk40q6kEzJoYenrvumyEkxg7QHEd9-FqLSRW0IsMe1QzQAuBkLytHVYShWfhKS1hrpiFvl2CHNsPQ_toLw')
 
   constructor(private http: HttpClient) { }
 
 //LOGIN (+ RECUPERAR PASS)
   // login
-  loginFuncionario(val: any) {
-    return this.http.post(this.APIUrl + '/funcionario/login', val);
+  loginFuncionario(funcionario: any) {
+    return this.http.post(this.APIUrl + '/funcionario/login', funcionario);
   }
 
 //USER/ESTABELECIMENTOS
@@ -79,23 +79,35 @@ export class SharedService {
   }
 
   // update dos dados do veterinario (patch)
-  editDadosFuncionario(val: any): Observable<any[]> {
-    return this.http.patch<any>(this.APIUrl + '/funcionario/editaccount', val, { headers: this.headerAuth });
+  editDadosFuncionario(funcionario: any): Observable<any[]> {
+    return this.http.patch<any>(this.APIUrl + '/funcionario/editaccount', funcionario, { headers: this.headerAuth });
   }
 
   // update password (patch)
-  editPasswordsFuncionario(val: any): Observable<any[]> {
-    return this.http.patch<any>(this.APIUrl + '/funcionario/changepassword', val, { headers: this.headerAuth });
+  editPasswordsFuncionario(funcionario: any): Observable<any[]> {
+    return this.http.patch<any>(this.APIUrl + '/funcionario/changepassword', funcionario, { headers: this.headerAuth });
   }
 
-  UploadPhoto(val: any) {
-    return this.http.post(this.APIUrl + '/funcionario/SaveFile', val, { headers: this.headerAuth })
+  UploadPhoto(funcionario: any) {
+    return this.http.post(this.APIUrl + '/funcionario/SaveFile', funcionario, { headers: this.headerAuth })
   }
 
 //USER/LOJA
   //mostrar artigos disponiveis para compra de um estabelecimento
   getArtigos(): Observable<any[]>{
     return this.http.get<any>(this.APIUrl + '/stockestabelecimento', {headers:this.headerAuth});
+  }
+
+  //post da encomenda
+  postEncomenda(encomenda : any): Observable<any[]>
+  {
+    return this.http.post<any>(this.APIUrl + '/encomenda/1',encomenda, {headers: this.headerAuth});
+  }
+
+  //post da encomenda e suas quantidades
+  postEncomendaStock(encomendaStock: any): Observable<any[]>
+  {
+    return this.http.post<any>(this.APIUrl + '/encomendastock', encomendaStock, {headers: this.headerAuth});
   }
 
 }

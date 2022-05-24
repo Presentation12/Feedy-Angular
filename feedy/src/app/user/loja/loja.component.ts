@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 
 declare function filter(): any;
+declare function submit(): any;
 
 @Component({
   selector: 'app-loja',
@@ -86,12 +87,21 @@ export class LojaComponent implements OnInit {
     {
       Nome: `${this.ArtigoSelecionado.Nome}`,
       Qtd: `${this.Qtd}`,
-      Preco: `${this.ArtigoSelecionado.Preco}`
+      Preco: `${this.ArtigoSelecionado.Preco}`,
+      IdStock: `${this.ArtigoSelecionado.IdStock}`,
+      IdEncomenda: ""
     }
+    this.ArtigoSelecionado.Stock-=this.Qtd;
     this.Carrinho.push(this.ArtigoCarrinho);
     this.Ok();
     this.PrecoFinal += this.Qtd * this.ArtigoSelecionado.Preco;
     this.Qtd = 0;
+  }
+
+  add(artigo : any)
+  {
+    artigo.Qtd++;
+    this.PrecoFinal += +artigo.Preco;
   }
 
   cancel()
@@ -99,6 +109,41 @@ export class LojaComponent implements OnInit {
     this.PrecoFinal = 0;
     this.Carrinho = [];
     this.Ok();
+  }
+
+  Encomenda: any;
+  MetodoPagamento: any;
+  EncomendaStock: any = {};
+  buyCarrinho()
+  {
+    this.Encomenda={
+      MetodoPagamento: `${this.MetodoPagamento}`,
+      IdMorada: `${this.Cliente.IdMorada}`,
+      IdCliente: `${this.Cliente.IdCliente}`
+    }
+    this.service.postEncomenda(this.Encomenda).subscribe(data=>{
+      this.EncomendaStock = data;
+
+      this.Carrinho.forEach((artigo: any) => {
+        artigo.IdEncomenda = this.EncomendaStock.IdEncomenda;
+        this.service.postEncomendaStock(artigo).subscribe();
+      });
+
+    });
+    this.aceite();
+  }
+
+  Mensagem:any = 0;
+  aceite()
+  {
+    this.PayCheck = 0;
+    this.Mensagem = 1;
+  }
+
+  OkAceite()
+  {
+    this.Mensagem = 0;
+    submit();
   }
 
   ngOnInit(): void {

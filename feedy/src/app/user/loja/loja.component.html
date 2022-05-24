@@ -14,7 +14,11 @@
                 <div class="dropdown">
                     <img class="cart" src="../../../assets/images/cart.svg" alt="">{{Carrinho.length}}
                     <div class="dropdown-cart">
-                        <a *ngFor="let artigo of Carrinho">{{artigo.Nome}}&nbsp;&nbsp;&nbsp;x{{artigo.Qtd}}&nbsp;&nbsp;&nbsp;{{artigo.Preco}}€&nbsp;&nbsp;&nbsp;</a>
+                        <div *ngFor="let artigo of Carrinho" class="line">
+                            <a *ngIf="artigo.Qtd > 0">{{artigo.Nome}}&nbsp;&nbsp;&nbsp;x{{artigo.Qtd}}&nbsp;&nbsp;&nbsp;{{artigo.Preco}}
+                                €&nbsp;&nbsp;&nbsp;</a>
+                            <input *ngIf="artigo.Qtd > 0" type="submit" value="+" id="detalhes" (click)="add(artigo)">
+                        </div>
                         <a *ngIf="Carrinho.length == 0">Carrinho vazio</a>
                         <div *ngIf="Carrinho.length > 0">
                             <hr>
@@ -61,7 +65,7 @@
                 <input type="submit" value="Pesquisar" id="filtro" (click)="Filter()" />
             </div>
 
-            <table class="table">
+            <table class="table" b>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -83,7 +87,7 @@
                         <td class="est">{{artigo.NomeEstabelecimento}}</td>
                         <td *ngIf="artigo.stock == 0">Esgotado</td>
                         <td *ngIf="artigo.stock != 0">Disponível</td>
-                        <td><input type="submit" value="Detalhes" id="detalhes" (click)="Details(artigo)" /></td>
+                        <td><input type="submit" value="+" id="detalhes" (click)="Details(artigo)" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -139,15 +143,15 @@
             <div class="opacity">
             </div>
             <div class="mensagem">
-                <h1>Detalhes</h1>
                 <div class="detalhesTexto">
                     <div class="detalhesTextoLinha">
-                        <a>Descrição:</a>
+                        <a>Descrição</a>
+                        <br>
                         <a>{{ArtigoSelecionado.Descricao}}</a>
                     </div>
                 </div>
                 <input [(ngModel)]="Qtd" id="qtd" type="number" placeholder="Quantidade" min="0">
-                <a *ngIf="Qtd > ArtigoSelecionado.Stock"> * Ultrapassou o limite de stock disponivel</a>
+                <a class="aviso" *ngIf="Qtd > ArtigoSelecionado.Stock"> * Ultrapassou o limite de stock disponivel</a>
                 <div class="submits">
                     <input *ngIf="Qtd > 0 && Qtd <= ArtigoSelecionado.Stock" type="submit" value="Comprar"
                         (click)="refreshCarrinho()" />
@@ -167,27 +171,47 @@
                         <a>Método de pagamento</a>
                         <div class="metodos">
                             <div class="metodo">
-                                <input name="radio" value="paypal" type="radio" checked>
+                                <input [(ngModel)]="MetodoPagamento" name="radio" value="paypal" type="radio">
                                 <img class="pay" src="../../../assets/images/paypal.png" alt="">
                             </div>
                             <div class="metodo">
-                                <input name="radio" value="mbway" type="radio">
+                                <input [(ngModel)]="MetodoPagamento" name="radio" value="mbway" type="radio">
                                 <img class="pay" src="../../../assets/images/mbway.png" alt="">
                             </div>
                             <div class="metodo">
-                                <input name="radio" value="visa" type="radio">
+                                <input [(ngModel)]="MetodoPagamento" name="radio" value="visa" type="radio">
                                 <img class="pay" src="../../../assets/images/visa.png" alt="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="submits">
-                    <input type="submit" value="Finalizar" />
+                    <input type="submit" value="Finalizar" (click)="buyCarrinho()" />
                     <input type="submit" value="Cancelar" (click)="Ok()" />
                 </div>
             </div>
         </div>
     </div>
+
+    <form class="submit">
+        <div *ngIf="Mensagem==1" class="show" id="show">
+            <div class="box">
+                <div class="opacity">
+                </div>
+                <div class="mensagem">
+                    <div class="detalhesTexto">
+                        <div class="detalhesTextoLinha">
+                            <a>Aceite</a>
+                        </div>
+                    </div>
+                    <div class="submits">
+                        <input type="submit" value="ok" (click)="OkAceite()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
 
 </body>
 
