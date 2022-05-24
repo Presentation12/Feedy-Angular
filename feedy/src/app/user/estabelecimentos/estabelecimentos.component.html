@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <link rel="stylesheet" routerLink="lista.component.css">
+</head>
+
+<body>
+
+    <div class="section">
+
+        <div class="top_navbar">
+            <a>{{Cliente.Nome}} {{Cliente.Apelido}}</a>
+            <div class="dropdown">
+                <img src="{{Cliente.ClienteFoto}}" class="perfil">
+                <div class="dropdown-content">
+                    <a routerLink="#">Editar Perfil</a>
+                    <a routerLink="#">Pagamentos</a>
+                    <a routerLink="#">Historico</a>
+                    <a routerLink="#">Encomendas</a>
+                    <a routerLink="#">Ajuda</a>
+                    <a routerLink="#">Sair</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="filters">
+                <a>Nome</a>
+                <input type="text" placeholder="Nome" class="barra" />
+                <a>Tipo</a>
+                <select id="tipoOp">
+                    <option value="---">---</option>
+                    <option value="Clinica">Clinica</option>
+                    <option value="Escola">Escola</option>
+                    <option value="Hotel">Hotel</option>
+                </select>
+                <a>Distrito</a>
+                <select id="distritoOp">
+                    <option value="---">---</option>
+                    <option *ngFor="let distrito of ListaDistritos" value="{{distrito}}">{{distrito}}</option>
+                </select>
+                <input type="submit" value="Pesquisar" id="filtro" (click)="Filter()" />
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Distrito</th>
+                        <th>Contacto</th>
+                        <th>Avaliação</th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bodytable">
+                    <tr class="lineTable" *ngFor="let estabelecimento of ListaEstabelecimentos">
+                        <td>
+                            <img src="{{estabelecimento.EstabelecimentoFoto}}" class="estab">
+                        </td>
+                        <td class="nome">{{estabelecimento.Nome}}</td>
+                        <td class="tipo">{{estabelecimento.TipoEstabelecimento}}</td>
+                        <td class="distrito">{{estabelecimento.Distrito}}</td>
+                        <td>{{estabelecimento.Contacto}}</td>
+                        <td>{{estabelecimento.AvaliacaoMedia}}</td>
+                        <td><input type="submit" value="Detalhes" id="detalhes" (click)="Details(estabelecimento)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="sidebar">
+        <img src="../../../assets/images/logo.svg" class="logo">
+        <ul>
+            <li>
+                <a routerLink="#">
+                    <span class="item">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="#">
+                    <span class="item">Gerir Animais</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="#">
+                    <span class="item">Serviços</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/user/estabelecimentos" class="active">
+                    <span class="item">Estabelecimentos</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/user/loja">
+                    <span class="item">Loja Online</span>
+                </a>
+            </li>
+        </ul>
+        <div class="dicasConteiner">
+
+            <div class="dicas" id="dicas">
+
+                <div class="slider-dica">
+                    <h4>Dica</h4>
+                    <p id="tip-text">{{tipText}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="DetalheCheck==1" class="show" id="show">
+        <div class="box">
+            <div class="opacity">
+            </div>
+            <div class="mensagem">
+                <h1>Detalhes</h1>
+                <div class="detalhesTexto">
+                    <div class="detalhesTextoLinha">
+                        <a>Pais:</a>
+                        <a>{{EstabelecimentoSelecionado.Pais}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Distrito:</a>
+                        <a>{{EstabelecimentoSelecionado.Distrito}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Concelho:</a>
+                        <a>{{EstabelecimentoSelecionado.Concelho}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Freguesia:</a>
+                        <a>{{EstabelecimentoSelecionado.Freguesia}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Rua:</a>
+                        <a>{{EstabelecimentoSelecionado.Rua}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Porta:</a>
+                        <a>{{EstabelecimentoSelecionado.Porta}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Andar:</a>
+                        <a>{{EstabelecimentoSelecionado.Andar}}</a>
+                    </div>
+                    <div class="detalhesTextoLinha">
+                        <a>Código Postal:</a>
+                        <a>{{EstabelecimentoSelecionado.CodigoPostal}}</a>
+                    </div>
+                </div>
+                <input id="ok" type="submit" value="Ok" (click)="Ok()" />
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<router-outlet></router-outlet>
