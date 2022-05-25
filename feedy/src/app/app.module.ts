@@ -13,11 +13,6 @@ import { GerenteComponent } from './gerente/gerente.component';
 import { Ajuda2Component } from './gerente/ajuda2/ajuda2.component'; 
 import { LojaComponent } from './user/loja/loja.component';
 import { LadingpageComponent } from './ladingpage/ladingpage.component';
-import { SaberMaisComponent } from './ladingpage/saber-mais/saber-mais.component';
-import { ParceriasComponent } from './ladingpage/parcerias/parcerias.component';
-import { VantagensComponent } from './ladingpage/vantagens/vantagens.component';
-import { AdesaoComponent } from './ladingpage/adesao/adesao.component';
-import { FuncionamentoComponent } from './ladingpage/funcionamento/funcionamento.component';
 
 import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -36,12 +31,7 @@ import { RouterModule } from '@angular/router';
     GerenteComponent,
     Ajuda2Component,
     LojaComponent,
-    LadingpageComponent,
-    SaberMaisComponent,
-    ParceriasComponent,
-    VantagensComponent,
-    AdesaoComponent,
-    FuncionamentoComponent
+    LadingpageComponent
   ],
   imports: [
     BrowserModule,

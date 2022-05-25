@@ -11,11 +11,6 @@ import { GerenteComponent } from './gerente/gerente.component';
 import { Ajuda2Component } from './gerente/ajuda2/ajuda2.component'; 
 import { LojaComponent } from './user/loja/loja.component';
 import { LadingpageComponent } from './ladingpage/ladingpage.component';
-import { SaberMaisComponent } from './ladingpage/saber-mais/saber-mais.component';
-import { ParceriasComponent } from './ladingpage/parcerias/parcerias.component';
-import { VantagensComponent } from './ladingpage/vantagens/vantagens.component';
-import { AdesaoComponent } from './ladingpage/adesao/adesao.component';
-import { FuncionamentoComponent } from './ladingpage/funcionamento/funcionamento.component';
 
 const routes: Routes = [
   {path: 'user',component:UserComponent},
@@ -27,12 +22,7 @@ const routes: Routes = [
   {path: 'gerente',component:GerenteComponent},
   {path: 'gerente/ajuda',component:Ajuda2Component},
   {path: 'user/loja', component:LojaComponent},
-  {path: '', component:LadingpageComponent},
-  {path: 'sabermais', component:SaberMaisComponent},
-  {path: 'parcerias', component:ParceriasComponent},
-  {path: 'vantagens', component:VantagensComponent},
-  {path: 'adesao', component: AdesaoComponent},
-  {path: 'funcionamento', component:FuncionamentoComponent}
+  {path: '', component:LadingpageComponent}
 ];
 
 @NgModule({
