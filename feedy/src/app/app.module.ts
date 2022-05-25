@@ -9,15 +9,20 @@ import { LoginComponent } from './veterinario/login/login.component';
 import { AjudaComponent } from './veterinario/ajuda/ajuda.component';
 import { PerfilComponent } from './veterinario/perfil/perfil.component';
 import { EstabelecimentosComponent } from './user/estabelecimentos/estabelecimentos.component';
-import { MenuComponent } from './menu/menu.component';
 import { GerenteComponent } from './gerente/gerente.component';
 import { Ajuda2Component } from './gerente/ajuda2/ajuda2.component'; 
+import { LojaComponent } from './user/loja/loja.component';
+import { LadingpageComponent } from './ladingpage/ladingpage.component';
+import { SaberMaisComponent } from './ladingpage/saber-mais/saber-mais.component';
+import { ParceriasComponent } from './ladingpage/parcerias/parcerias.component';
+import { VantagensComponent } from './ladingpage/vantagens/vantagens.component';
+import { AdesaoComponent } from './ladingpage/adesao/adesao.component';
+import { FuncionamentoComponent } from './ladingpage/funcionamento/funcionamento.component';
 
 import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LojaComponent } from './user/loja/loja.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +32,16 @@ import { LojaComponent } from './user/loja/loja.component';
     AjudaComponent,
     PerfilComponent,
     EstabelecimentosComponent,
-    MenuComponent,
     LoginComponent,
     GerenteComponent,
     Ajuda2Component,
-    LojaComponent
+    LojaComponent,
+    LadingpageComponent,
+    SaberMaisComponent,
+    ParceriasComponent,
+    VantagensComponent,
+    AdesaoComponent,
+    FuncionamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +50,7 @@ import { LojaComponent } from './user/loja/loja.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: MenuComponent },
+      { path: '', component: LadingpageComponent },
     ])
   ],
   providers: [SharedService],
