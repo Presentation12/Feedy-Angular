@@ -110,4 +110,11 @@ export class SharedService {
     return this.http.post<any>(this.APIUrl + '/encomendastock', encomendaStock, {headers: this.headerAuth});
   }
 
+// Lading page
+  //get estabelecimentos para pagina inicial sem autorizações
+  getEstabelecimentosNameAndPhoto(): Observable<any[]>
+  {
+    return this.http.get<any>(this.APIUrl + '/estabelecimento/getallestabelecimentosnames');
+  }
+
 }
